@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<script>
+    function ajax(){
+        alert("hello")    
+        url = '/job/jobsReq';
+
+
+		var obj = new XMLHttpRequest();
+		obj.onreadystatechange = function (){
+			if(obj.readyState == 4 && obj.status == 200){
+				handler(obj.responseText);
+			}
+		}
+		obj.open("GET",url,true);
+		obj.send();
+    }
+    function handler(str){
+        console.log(str)
+    }
+
+</script>
+<div class="news-feed row">
+
+    <h1 class="offset-1 col-10">JOBS</h1>
+</div>
+<div class="row">
+    <div class="offset-1 col-10">
+    <button onclick="ajax()">click</button>
+    <div class="jobs"></div>
+</div>
+</div>
+
+{% endblock %}

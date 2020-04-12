@@ -1,0 +1,26 @@
+{% for post in posts %}
+
+                <div class="offset-1 col-10 post-card mb-2 ">    
+                        <div class="post-background">
+                            <div class="card-body pb-1 border-for-post">
+                                <span>
+            
+                                <span class="h6 pt-4 pl-2 card-title">{{ post.username }}</span>
+                                </span>
+                                <p class="pt-3 card-text">
+                                    {{ post.text }}
+                                </p>
+                                <div class="btn-group " style="width: 100%;">
+            
+                                        <button class=" btn btn-custom-white border-black-button btn-sm" type="button" id="div1button1" onclick="changeColor(this.id)"><i class="fas fa-thumbs-up"></i> Like</button>
+                                        
+                                        <button class="btn border-black-button btn-custom-white btn-sm" type="button" id="div1button2" onclick="changeColor(this.id)"><i class="fas fa-comment"></i> Comment</button>
+                                        
+                                        <button class="btn border-black-button btn-custom-white btn-sm" type="button" id="div1button3" onclick="changeColor(this.id)"><i class="fa fa-share"></i> Share</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+</div>
+{% endfor %}

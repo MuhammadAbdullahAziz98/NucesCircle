@@ -1,0 +1,27 @@
+	<title>Send Email!</title>
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="news-feed">
+        {% include 'sendmail/_alerts.html' %}
+    <div class="row">
+        <div class="offset-1 col-10 ">
+                <h3 class="mb-3">Send an Email:</h3>
+            <form  action="{% url 'sendmail:email' %}" method="POST">
+                {% csrf_token %}
+            <div class="lead">To:</div>
+            <input name="to" id="to" type="email" class="mb-3 form-control " required>
+            <div class="lead">Subject:</div>
+            <input name="subject" id="subject" type="text" class="mb-3 form-control" required>
+            <div class="lead">Message:</div>
+            <input name="messages" id="message" type="text" class="mb-3 form-control" equired>
+            <input type="submit" value="Send" class="btn btn-primary form-control">
+            </form>
+            <script src="{% static 'accounts/js/main.js' %}"></script>        
+
+        </div>
+    </div>
+</div>
+</html>
+{% endblock %}

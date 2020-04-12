@@ -1,0 +1,57 @@
+{% extends 'accounts/mainbase.html' %}
+
+{% block body %}
+    <header id="home-section">
+        <div class="dark-overlay">
+            <!--home inner has content-->
+            <div class="inner container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 d-lg-block d-none">
+                        <h1 class="display-4"><strong>Connect</strong> to Employers and Fellows!</h1>
+                        <div class="d-flex">
+                            <div class="p-4 align-self-end lead"><strong>Nuces Circle</strong> is the number one place to connect to companies and find jobs. </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card card-form text-center bg-info">
+                            <div class="card-body">
+                                <!--Alerts-->
+                                {% include 'accounts/_alerts.html' %}
+                                <h3 class="h3">Sign Up Today</h3>
+                                <p>Kindly fill the form below to Sign up.</p>
+                                <form action="{% url 'accounts:index' %}" method="post" onsubmit = "return(validate());">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="text" name="first_name"  class="form-control form-control-lg" placeholder="First Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="last_name" class="form-control form-control-lg" placeholder="Last Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="degree" class="form-control form-control-lg" placeholder="Degree" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="city" class="form-control form-control-lg" placeholder="City" required>
+                                    </div>
+                                    <div class="form-group">
+                                            <input type="text" name="dateOfBirth"  id="datepicker" class="form-control form-control-lg" placeholder="Date of Birth" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required>
+                                    </div>
+                                    <input type="submit" value="Register" class="btn btn-outline-light" onclick="checkEmpty">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+
+{% endblock %}

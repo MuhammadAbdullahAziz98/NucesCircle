@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="news-feed row">
+
+    <form class="offset-1 col-10" action="{% url 'profiles:saveExperience' expNo %}" method="POST" onsubmit="return(validate());">
+        {% csrf_token %}
+        <p class="lead mr-auto"> Title:  </p>
+        <input class="mb-3 form-control" name="title" required>
+        <p class="lead mr-auto">Company: </p>
+        <input class="mb-3 form-control" name="company" required>
+        <p class="lead mr-auto">From: </p>
+        <input class="mb-3 form-control" name="fromDate" id="fromDate" required>
+        <p class="lead mr-auto" >To: </p>
+        <input class="mb-3 form-control" name="toDate" id="toDate" required>
+        <p class="lead mr-auto">Explanation: </p>
+        <input class="mb-5 form-control" name="explanation" required>
+        <input type="submit" value="Add" class="form-control btn btn-outline-primary">
+
+    </form>
+</div>
+{% endblock %}

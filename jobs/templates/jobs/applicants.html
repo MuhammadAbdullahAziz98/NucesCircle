@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="news-feed row">
+        {% include 'accounts/_alerts.html' %}
+
+        {% if applicants %}
+        {% for user in applicants %}
+<div class="offset-1 col-10 mb-2 card">
+        <div class="card-body">
+            <h4 class="card-title">{{ user.first_name}}  {{user.last_name}}</h4>
+            <p class="card-text">{{user.email}}</p>
+            <a class="btn btn-outline-primary" href="https://127.0.0.1:8000/profile/{{user.username}}">Check</a>
+            <a class="btn btn-outline-primary" href="{% url 'jobs:select' jobid user.username %}">Select</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<h3 class="ml-5">No jobs applicants yet</h3>
+{% endif %}
+
+{% endblock %}
+

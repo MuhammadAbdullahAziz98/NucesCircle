@@ -1,0 +1,39 @@
+{% extends 'accounts/mainbase.html' %}
+
+{% block body %}
+<header id="home-section">
+
+        <div class="dark-overlay">
+            <!--home inner has content-->
+            <div class="inner container">
+                <div class="row">
+                    <div class="col-lg-4 offset-lg-4 mt-4">
+                        <div class="card card-form text-center bg-info">
+                            <div class="card-body">
+                                <!--Alerts-->
+                                {% include 'accounts/_alerts.html' %}
+
+                                <h3 class="h3">Login</h3>
+                                <p>Enter email and password to login</p>
+                                <button class="btn btn-outline-info mb-2 " >
+                                    <a class="text-light" href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+                                </button>
+                                <form action="{% url 'accounts:login' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="email" name="email" class="form-control form-control-lg" placeholder="Email"></div required>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required></div>
+                                    <input type="submit" value="Login" class="btn btn-outline-light">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+{% endblock %}
+
+

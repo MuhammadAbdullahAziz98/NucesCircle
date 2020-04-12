@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="news-feed row">
+        {% include 'accounts/_alerts.html' %}
+        {% if jobs %}
+        <h4 class="mb-2 ml-5">Select a job to see applicants:</h4>
+
+            {% for job in jobs %}
+            <div class="offset-1 col-10 mb-2 card">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ job.title}}</h4>
+                        <h6 class="card-subtitle text-muted">{{job.reqEducation}}</h6>
+                        <p class="card-text">{{job.description}}</p>
+                        <a class="btn btn-outline-primary" href="{% url 'jobs:checkApplicants' job.id %}">Check</a>
+                        <a class="btn btn-outline-primary" href="{% url 'jobs:delete' job.id %}">Delete Job</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <h3 class="offset-1 col-10">No jobs posted yet</h3>
+        {% endif %}
+{% endblock %}
+

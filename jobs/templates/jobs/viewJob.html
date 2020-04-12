@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="ml-5 news-feed">
+    <h5>Job Title:</h5>
+    <br/>
+    <div class="lead mb-2">{{ job.title |linebreaks}}</div>
+    <br>
+    <h5>Job Description:</h5>
+    <div class="lead mb-2">{{ job.description|linebreaks}}</div>
+    <br>
+    <h5>Job Location:</h5>
+    <div class="lead mb-2">{{job.jobLocation}}</div>
+    <br>
+    <h5>Required Education:</h5>
+    <div class="lead mb-2">{{job.reqEducation}}</div>
+    <br>
+    <h5>Posted By:</h5>
+    <div class="lead mb-2">{{username}}</div>
+    <h5>Organization:  <span class="lead mb-2">{{company}}</span></h5>
+    
+    <br>
+    <h5>Date Posted:</h5>
+    <div class="lead mb-2">{{job.datePosted}}</div>
+    <br>
+    <a class="btn btn-outline-primary" href="{% url 'jobs:apply' job.id %}">Apply</a>
+</div>
+
+
+{% endblock %}

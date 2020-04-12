@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="news-feed row mb-2" >
+        <div class="offset-md-1 col-md-2 ">
+            <div class="profile-status card border-secondary bg-white text-dark " style="width: 100%;">
+                    <div class="text-md-center pt-4"><img class="card-img-top img-fluid" src="{% static 'accounts/img/job.jpg' %}" alt="">
+                   
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title text-md-center text-nowrap"><span id="firstN">{{user.first_name}}</span><br><span id="lastN">{{user.last_name}}</span></h6>
+                        {% if user.profile.isCompany %}
+                            <p class="card-text text-md-center"> <small class="text-muted">{{user.profile.company}}</small></p>
+                            <p class="card-text text-md-center"> <small class="text-muted">{{user.profile.position}}</small></p>
+                        {% else %}
+                            <p class="card-text text-md-center"> <small class="text-muted">{{user.profile.degree}}</small></p>
+                        {% endif %}
+                    </div>
+            </div>                    
+        </div>
+        <div class="col-10 offset-1 col-md-8 offset-md-0">    
+                <div class="poster-background  poster-border py-4 ">
+                    <form action="/create_post/" method="POST" id="post-form">
+                        {% csrf_token %}
+                        <div class="h6 ml-4">Create a post:</div>
+                        <div class="pb-1 text-center">
+                            <input type="text" name="post-text" id="post-text" class="break lead btn-poster" placeholder="Start a post!" required/>
+                        
+                        </div>
+                        <input class="btn btn-primary btn-sm offset-8 col-3" type="submit" value="Post">
+                    </form>
+                </div>
+        </div>
+    </div>
+<div class="row posts-margins" id="posts-top">
+</div>
+<div id="posts">{% include 'accounts/posts.html' %}</div>
+
+<div class="row posts-margins" id="posts-section">
+</div>
+       
+<script src="{% static 'accounts/js/newsfeed.js' %}"></script>        
+{% endblock %}

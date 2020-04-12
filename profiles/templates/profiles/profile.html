@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+{% if backends.associated %}
+<div class="news-feed">
+    <div class="row">
+        {% for be in backends.associated %}
+        <div class="text-md-left text-center offset-md-1 col-md-2 ">
+            <img class="profile-img img-fluid" src="{% if user.username == user2.username and be.provider == 'facebook' %} 
+            {{be.extra_data.picture.data.url}}
+            {% else %}
+            {% static 'accounts/img/job.jpg' %}
+            {% endif %}" alt="">               
+        </div>
+        <div class="text-md-left text-center mt-4 col-md-9 ">
+            <p class="h3">{{user2.first_name}}&nbsp;{{user2.last_name}}</p>
+            <p class="text-primary h6">
+            {% if be.provider == 'facebook' %} 
+                <p class="text-secondary"></p>
+            {% else %}
+                {% if user2.profile.isCompany%}
+                    {{user2.profile.position}} at "{{user2.profile.company}}"
+                {% else %}
+                    {{user2.profile.degree}}
+                {% endif %}
+            {% endif %}
+            </p>
+            <div>
+               <div class="col-md-6"> 
+                    <p class="text-secondary mt-4 ">
+                        {% if be.provider == 'facebook' %} 
+                            <p class="text-secondary"></p>
+                        {% else %}
+                            Date of Birth: {{user2.profile.dateOfBirth}}</p>
+                        {% endif %}
+                    {% if be.provider == 'facebook' %} 
+                        <p class="text-secondary"></p>
+                    {% else %}
+                    <p class="text-secondary">City: {{user2.profile.city}}</p>
+                    {% endif %}
+                </div>
+                {% if follow == 1 %}
+                    <button class="btn btn-primary disabled col-md-6 mt-2 mb-3 btn-lg" type="button">Following</button>
+                {% else %}
+                    <form method="POST" action="{% url 'profiles:addFriend' user2.username %}">
+                            {% csrf_token %} 
+                            <input type="hidden" name="action" value="export" /> 
+                            <input type="submit" value="Follow" class=" {% if user.username == user2.username %} d-none {% else %} col-md-6 mt-2 mb-3 btn-lg btn btn-outline-primary {% endif %}">
+                    </form>
+                {% endif %}
+            </div>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="text-md-left text-center offset-md-1 col-md-11 h3 mt-5">Education:</div>
+    </div>
+    <div class="row">
+        <a class="{% if user.username == user2.username %} text-md-right text-center col-12 mt-2 {% else %} d-none {% endif %}}" href="{% url 'profiles:addEducation' user.username%}" >Add Education+</a>
+    </div>
+    {% for ed in educationSet %}
+    <div class="row">
+        <div class="mt-4 mb-3 offset-md-2 col-10">
+            <div class="col-md-8 text-md-left text-center text-dark lead">
+                Institute: {{ ed.institute }}
+                <br/>
+                From: {{ed.fromDate}}
+                <br/>
+                To: {{ed.toDate}}
+                <br/>
+                Degree: {{ ed.degree }}
+            </div>
+            <div class="col-md-2 mt-2">
+            <hr class="profHr">    
+
+            </div>
+        </div>
+
+    </div>
+    {% endfor %}
+    <div class="row">
+            <div class="text-md-left text-center offset-md-1 col-md-11 h3 mt-5">Experience:</div>
+    </div>
+        <div class="row">
+            <a class="{% if user.username == user2.username %} text-md-right text-center col-12 mt-2 {% else %} d-none {% endif %}}" href="{% url 'profiles:addExperience' user.username%}" >Add Experience+</a>
+        </div>
+        {% for ex in experienceSet %}
+        <div class="row">
+            <div class="mt-4 mb-3 offset-md-2 col-10">
+                <div class="col-md-8 text-md-left text-center text-dark lead">
+                    Title: {{ex.title}}
+                    <br/>
+                    Company: {{ex.company}}
+                    <br/>
+                    From: {{ex.fromDate}}
+                    <br/>
+                    To: {{ex.toDate}}
+                </div>
+                <div class="col-md-2 mt-2">
+                <hr class="profHr">    
+    
+                </div>
+            </div>
+    
+        </div>
+    {% endfor %}
+</div>
+
+{% endfor %}
+{% else %}
+<div class="news-feed">
+        <div class="row">
+            <div class="text-md-left text-center offset-md-1 col-md-2 ">
+                <img class="profile-img img-fluid" src="{% static 'accounts/img/job.jpg' %}" alt="">               
+            </div>
+            <div class="text-md-left text-center mt-4 col-md-9 ">
+                <p class="h3">{{user2.first_name}}&nbsp;{{user2.last_name}}</p>
+                <p class="text-primary h6">
+                {% if user2.profile.isCompany%}
+                    {{user2.profile.position}} at "{{user2.profile.company}}"
+                {% else %}
+                    {{user2.profile.degree}}
+                {% endif %}
+                </p>
+                <div>
+                   <div class="col-md-6"> 
+                        <p class="text-secondary mt-4 ">Date of Birth: {{user2.profile.dateOfBirth}}</p>
+                        <p class="text-secondary">City: {{user2.profile.city}}</p>
+                    </div>
+                    {% if follow == 1 %}
+                        <button class="btn btn-primary disabled col-md-6 mt-2 mb-3 btn-lg" type="button">Requested</button>
+                    {% elif follow == 2 %}
+                        <button class="btn btn-primary disabled col-md-6 mt-2 mb-3 btn-lg" type="button">Following</button>
+                    {% else %}
+                        <form method="POST" action="{% url 'profiles:addFriend' user2.username %}">
+                                {% csrf_token %} 
+                                <input type="hidden" name="action" value="export" /> 
+                                <input type="submit" value="Follow" class=" {% if user.username == user2.username %} d-none {% else %} col-md-6 mt-2 mb-3 btn-lg btn btn-outline-primary {% endif %}">
+                        </form>
+                    {% endif %}
+                </div>
+            </div>  
+        </div>
+        <div class="row">
+            <div class="text-md-left text-center offset-md-1 col-md-11 h3 mt-5">Education:</div>
+        </div>
+        <div class="row">
+            <a class="{% if user.username == user2.username %} text-md-right text-center col-12 mt-2 {% else %} d-none {% endif %}}" href="{% url 'profiles:addEducation' user.username%}" >Add Education+</a>
+        </div>
+        {% for ed in educationSet %}
+        <div class="row">
+            <div class="mt-4 mb-3 offset-md-2 col-10">
+                <div class="col-md-8 text-md-left text-center text-dark lead">
+                    Institute: {{ ed.institute }}
+                    <br/>
+                    From: {{ed.fromDate}}
+                    <br/>
+                    To: {{ed.toDate}}
+                    <br/>
+                    Degree: {{ ed.degree }}
+                </div>
+                <div class="col-md-2 mt-2">
+                    <a class="{% if user.username != user2.username %} d-none {% endif %}" href="#">Edit</a>
+                <hr class="profHr">    
+    
+                </div>
+            </div>
+    
+        </div>
+        {% endfor %}
+        <div class="row">
+                <div class="text-md-left text-center offset-md-1 col-md-11 h3 mt-5">Experience:</div>
+        </div>
+            <div class="row">
+                <a class="{% if user.username == user2.username %} text-md-right text-center col-12 mt-2 {% else %} d-none {% endif %}}" href="{% url 'profiles:addExperience' user.username%}" >Add Experience+</a>
+            </div>
+            {% for ex in experienceSet %}
+            <div class="row">
+                <div class="mt-4 mb-3 offset-md-2 col-10">
+                    <div class="col-md-8 text-md-left text-center text-dark lead">
+                        Title: {{ex.title}}
+                        <br/>
+                        Company: {{ex.company}}
+                        <br/>
+                        From: {{ex.fromDate}}
+                        <br/>
+                        To: {{ex.toDate}}
+                    </div>
+                    <div class="col-md-2 mt-2">
+                        <a class="{% if user.username != user2.username %} d-none {% endif %}" href="#">Edit</a>
+                    <hr class="profHr">    
+        
+                    </div>
+                </div>
+        
+            </div>
+        {% endfor %}
+    </div>
+    
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="news-feed row">
+
+    <form class="offset-1 col-10" action="{% url 'profiles:saveEducation' edNo %}" method="POST" onsubmit="return(validate());">
+        {% csrf_token %}
+        <p class="lead mr-auto"> Degree:  </p>
+        <input class="mb-3 form-control" name="degree" required>
+        <p class="lead mr-auto">Institute: </p>
+        <input class="mb-3 form-control" name="institute" required>
+        <p class="lead mr-auto">From: </p>
+        <input class="mb-3 form-control" name="fromDate" id="fromDate" required>
+        <p class="lead mr-auto" >To: </p>
+        <input class="mb-3 form-control" name="toDate" id="toDate" required>
+        <input type="submit" value="Add" class="form-control btn btn-outline-primary">
+
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="news-feed row">
+        {% include 'accounts/_alerts.html' %}
+        <a class="offset-1 col-10 btn btn-outline-primary" href="{% url 'jobs:viewApplicants'%}">view Applications</a>
+    <form id="myForm" class="offset-1 col-10" action="{% url 'jobs:saveJob' jobNo%}" method="POST">
+        {% csrf_token %}
+        <p class="lead mr-auto"> Title:  </p>
+        <input class="mb-3 form-control" name="title" required>
+        <p class="lead mr-auto">Description: </p>
+        <input class="mb-3 form-control" name="description" id="description" required>
+        <p class="lead mr-auto" >Job Location: </p>
+        <input class="mb-3 form-control" name="jobLocation" id="jobLocation" required>
+        <p class="lead mr-auto">Explanation: </p>
+        <input class="mb-3 form-control" name="explanation" required>
+        <p class="lead">Required Education: </p>
+        <input class="mb-5 form-control" name="reqEducation" id = "skill0" required>
+        <input type="submit" value="Add" class="form-control btn btn-outline-primary">
+
+    </form>
+</div>
+{% endblock %}
